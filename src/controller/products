@@ -1,0 +1,37 @@
+// Import models
+const productModel = require("../model/products")
+
+// Function to get all or search from database
+getAllProducts = async(req, res) => {
+    // Taking query params as const
+    const queryPage = Number(req.query.page)|| 1;
+    const querySearch = req.query.search || "";
+    const querySortBy = req.query.sortby || "product_name";
+    const querySort = req.query.sort || "ASC";
+    const queryLimit = Number(req.query.limit) || 5;
+    const queryOffset = (queryPage - 1) * queryLimit;
+
+    // Error handling for query database
+    try{
+        // Calling selectAllProduct method from model
+        const result = await productModel
+                                .selectAllProduct(
+                                    querySearch,
+                                    querySortBy,
+                                    querySort,
+                                    queryLimit,
+                                    queryOffset
+                                    );
+        // Sending result
+        res.send(result);
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
+// Export function to router
+module.exports = {
+    getAllProducts,
+    getDetailProduct
+}
