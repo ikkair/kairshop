@@ -30,7 +30,7 @@ function insertProduct(queryObject){
     return pool.query(
         `INSERT INTO products(id, product_name, product_price) `+
         `VALUES(${id}, '${product_name}', ${product_price})`
-    )
+    );
 }
 
 // Function to update record
@@ -40,10 +40,10 @@ function updateProduct(queryObject){
         `UPDATE products SET product_name='${product_name}', `+
         `product_price='${product_price}' WHERE id=${id}`
 
-    )
+    );
 }
 
-// Function to get record from id
+// Function to delete record from id
 function deleteProduct(queryId){
     return pool.query(
         `DELETE FROM products WHERE id=${queryId}`
