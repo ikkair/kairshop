@@ -29,10 +29,22 @@ app.all('*', (req, res, next) => {
     next(new createError.NotFound());
 })
 
+// Error handling for html
+app.use((err,req,res,next)=>{
+    const messageError = err.message || "internal server error"
+    const statusCode = err.status || 500
+    res.status(statusCode).json({
+      message : messageError
+    });
+})
+
 // Listening port awaiting requests
 app.listen(port, ()=>{
     console.log(`Server run on port: ${port}`);
 })
 
 
-
+// tambah handling error | clear
+// Readme | clear
+// table dilengkapi | ongoing
+// export postman

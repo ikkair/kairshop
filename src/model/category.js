@@ -12,7 +12,7 @@ const pool = new Pool({
 // Function to query all or search category table
 function selectAllCategory(querySearch, querySortBy, querySort, queryLimit, queryOffset){
     return pool.query(
-        `SELECT * FROM category WHERE category_type LIKE '%${querySearch}%' `+
+        `SELECT * FROM categories WHERE category_type LIKE '%${querySearch}%' `+
         `ORDER BY ${querySortBy} ${querySort} LIMIT ${queryLimit} OFFSET ${queryOffset}`
     )
 }
@@ -20,7 +20,7 @@ function selectAllCategory(querySearch, querySortBy, querySort, queryLimit, quer
 // Function to get record from id
 function selectCategory(queryId){
     return pool.query(
-        `SELECT * FROM category WHERE id=${queryId}`
+        `SELECT * FROM categories WHERE id=${queryId}`
     );
 }
 
@@ -28,7 +28,7 @@ function selectCategory(queryId){
 function insertCategory(queryObject){
     const {id, category_type} = queryObject;
     return pool.query(
-        `INSERT INTO category(id, category_type) `+
+        `INSERT INTO categories(id, category_type) `+
         `VALUES(${id}, '${category_type}')`
     );
 }
@@ -37,7 +37,7 @@ function insertCategory(queryObject){
 function updateCategory(queryObject){
     const {id, category_type} = queryObject; 
     return pool.query(
-        `UPDATE category SET category_type='${category_type}' `+
+        `UPDATE categories SET category_type='${category_type}' `+
         `WHERE id=${id}`
     );
 }
@@ -45,7 +45,7 @@ function updateCategory(queryObject){
 // Function to delete record from id
 function deleteCategory(queryId){
     return pool.query(
-        `DELETE FROM category WHERE id=${queryId}`
+        `DELETE FROM categories WHERE id=${queryId}`
     );
 }
 
@@ -53,7 +53,7 @@ function deleteCategory(queryId){
 // Function to count category 
 function countCategory(){
     return pool.query(
-        `SELECT COUNT(*) FROM category`
+        `SELECT COUNT(*) FROM categories`
     );
 }
 

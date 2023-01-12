@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 // Import controller functions
-const categoryController = require("../controller/category")
+const categoryController = require("../controller/category");
 
 // Route link to controller
 router.get('/', categoryController.getAllCategory);

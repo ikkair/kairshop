@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 // Import controller functions
-const productController = require("../controller/products")
+const productController = require("../controller/products.js");
 
 // Route link to controller
 router.get('/', productController.getAllProducts);

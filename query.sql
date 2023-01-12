@@ -51,16 +51,16 @@ INSERT INTO products(id, product_name, product_price)
 
 -- Table Init
 -- Delete table if same name exist
-DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS categories;
 
 -- Creating category table
-CREATE TABLE category(
+CREATE TABLE categories(
     id INT PRIMARY KEY,
     category_type VARCHAR(255) NOT NULL
 );
 
 -- Dummy data category
-INSERT INTO category(id, category_type) 
+INSERT INTO categories(id, category_type) 
     VALUES
         (1, 'Elektronik'),
         (2, 'Baju'),
@@ -69,3 +69,21 @@ INSERT INTO category(id, category_type)
         (5, 'Mainan'),
         (6, 'Software'),
         (7, 'Memory');
+
+
+-- Creating customers table
+CREATE TABLE customers(
+    id INT PRIMARY KEY,
+    customer_name VARCHAR(255) NOT NULL,
+    customer_email VARCHAR(255) NOT NULL,
+    customer_phone BIGINT NOT NULL
+);
+
+-- Dummy data category
+INSERT INTO customers(id, customer_name, customer_email, customer_phone) 
+    VALUES
+        (1, 'Iqbal', 'Iqbal@gmail.com', 08887899978),
+        (2, 'Desi', 'Desi@gmail.com', 08678967899),
+        (3, 'Rahman', 'Rahman@gmail.com', 0823423444),
+        (4, 'Yuli', 'Yuli@gmail.com', 08128945344),
+        (5, 'Kair', 'Kair@gmail.com', 08432930000);
