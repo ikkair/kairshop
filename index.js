@@ -1,26 +1,27 @@
 // Import environtment variable
 require("dotenv").config();
 
-// Import express library 
-const express = require("express");
-const app = express();
+// Import
+const mainRouter = require("./src/router/index"); // Import main router
+const express = require("express"); // Import express library 
+const helmet = require("helmet"); // Import helmet
+const cors = require("cors"); // Import cors
+const createError = require("http-errors"); // Import http error
+const morgan = require("morgan"); // Import morgan
+const xss = require("xss-clean") // Import xss
+const app = express(); // Import express
 
-// Import cors
-const cors = require("cors");
+// Use middleware
+app.use(express.json());
 app.use(cors());
-
-// // Import helmet
-// const helmet = require("helmet");
-// app.use(helmet);
-
-// Import error response to unidentified path
-const createError = require("http-errors");
+app.use(morgan("dev"));
+app.use(helmet());
+app.use(xss());
 
 // Port choice
-const port = 4000;
+const port = process.env.PORT;
 
-// Import and use Main Router
-const mainRouter = require("./src/router/index")
+// use Main Router
 app.use("/", mainRouter);
 
 // Calling error to unidentified path
