@@ -5,7 +5,7 @@ const categoryModel = require("../model/category");
 const succesTemplate = require("../helper/common");
 
 // Function to get all or search from database
-getAllCategory = async(req, res) => {
+const getAllCategory = async(req, res) => {
     // Taking query params as const
     const queryPage = Number(req.query.page)|| 1;
     const querySearch = req.query.search || "";
@@ -42,7 +42,7 @@ getAllCategory = async(req, res) => {
 }
 
 // Function to get detail based on id
-getDetailCategory = async(req, res) => {
+const getDetailCategory = async(req, res) => {
     // Taking params as const
     const queryId = Number(req.params.id);
 
@@ -63,7 +63,7 @@ getDetailCategory = async(req, res) => {
 }
 
 // Function to create category
-createCategory = (req, res) => {
+const createCategory = (req, res) => {
     // Calling insertCategory from model
     categoryModel.insertCategory(req.body)
         .then((result) => {
@@ -79,7 +79,7 @@ createCategory = (req, res) => {
 } 
 
 // Function to update category 
-updateCategory = (req, res) => {
+const updateCategory = (req, res) => {
     // Set param id as const
     const paramId = Number(req.params.id);
     req.body.id = paramId;
@@ -102,7 +102,7 @@ updateCategory = (req, res) => {
 }
 
 // Function to delete category
-deleteCategory = (req, res) => {
+const deleteCategory = (req, res) => {
     const paramId = Number(req.params.id);
     categoryModel.deleteCategory(paramId)
         .then((result)=>{
@@ -125,7 +125,6 @@ deleteCategory = (req, res) => {
 module.exports = {
     getAllCategory,
     getDetailCategory,
-    createCategory,
     createCategory,
     updateCategory,
     deleteCategory

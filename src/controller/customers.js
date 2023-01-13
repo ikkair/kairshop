@@ -5,7 +5,7 @@ const customerModel = require("../model/customers");
 const succesTemplate = require("../helper/common");
 
 // Function to get all or search from database
-getAllCustomers = async(req, res) => {
+const getAllCustomers = async(req, res) => {
     // Taking query params as const
     const queryPage = Number(req.query.page)|| 1;
     const querySearch = req.query.search || "";
@@ -42,7 +42,7 @@ getAllCustomers = async(req, res) => {
 }
 
 // Function to get detail based on id
-getDetailCustomer = async(req, res) => {
+const getDetailCustomer = async(req, res) => {
     // Taking params as const
     const queryId = Number(req.params.id);
 
@@ -63,7 +63,7 @@ getDetailCustomer = async(req, res) => {
 }
 
 // Function to create customer
-createCustomer = (req, res) => {
+const createCustomer = (req, res) => {
     // Calling insertCustomer from model
     customerModel.insertCustomer(req.body)
         .then((result) => {
@@ -79,7 +79,7 @@ createCustomer = (req, res) => {
 } 
 
 // Function to update customer
-updateCustomer = (req, res) => {
+const updateCustomer = (req, res) => {
     // Set param id as const
     const paramId = Number(req.params.id);
     req.body.id = paramId;
@@ -102,7 +102,7 @@ updateCustomer = (req, res) => {
 }
 
 // Function to delete customer
-deleteCustomer = (req, res) => {
+const deleteCustomer = (req, res) => {
     const paramId = Number(req.params.id);
     customerModel.deleteCustomer(paramId)
         .then((result)=>{

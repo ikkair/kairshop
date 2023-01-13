@@ -5,7 +5,7 @@ const productModel = require("../model/products");
 const succesTemplate = require("../helper/common");
 
 // Function to get all or search from database
-getAllProducts = async(req, res) => {
+const getAllProducts = async(req, res) => {
     // Taking query params as const
     const queryPage = Number(req.query.page)|| 1;
     const querySearch = req.query.search || "";
@@ -42,7 +42,7 @@ getAllProducts = async(req, res) => {
 }
 
 // Function to get detail based on id
-getDetailProduct = async(req, res) => {
+const getDetailProduct = async(req, res) => {
     // Taking params as const
     const queryId = Number(req.params.id);
 
@@ -63,7 +63,7 @@ getDetailProduct = async(req, res) => {
 }
 
 // Function to create product
-createProduct = (req, res) => {
+const createProduct = (req, res) => {
     // Calling insertProduct from model
     productModel.insertProduct(req.body)
         .then((result) => {
@@ -79,7 +79,7 @@ createProduct = (req, res) => {
 } 
 
 // Function to update product
-updateProduct = (req, res) => {
+const updateProduct = (req, res) => {
     // Set param id as const
     const paramId = Number(req.params.id);
     req.body.id = paramId;
@@ -102,7 +102,7 @@ updateProduct = (req, res) => {
 }
 
 // Function to delete product
-deleteProduct = (req, res) => {
+const deleteProduct = (req, res) => {
     const paramId = Number(req.params.id);
     productModel.deleteProduct(paramId)
         .then((result)=>{

@@ -30,7 +30,7 @@ app.all('*', (req, res, next) => {
 })
 
 // Error handling for html
-app.use((err,req,res,next)=>{
+app.use((err,req,res)=>{
     const messageError = err.message || "internal server error"
     const statusCode = err.status || 500
     res.status(statusCode).json({
