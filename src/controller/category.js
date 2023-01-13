@@ -2,7 +2,7 @@
 const categoryModel = require("../model/category");
 
 // Import success template
-const succesTemplate = require("../template/template");
+const succesTemplate = require("../helper/common");
 
 // Function to get all or search from database
 getAllCategory = async(req, res) => {

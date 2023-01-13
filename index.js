@@ -46,5 +46,6 @@ app.listen(port, ()=>{
 
 // tambah handling error | clear
 // Readme | clear
-// table dilengkapi | ongoing
-// export postman
+// table dilengkapi | clear
+// ubah template menjadi helper | clear
+// export postman | ongoing

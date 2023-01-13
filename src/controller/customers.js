@@ -2,7 +2,7 @@
 const customerModel = require("../model/customers");
 
 // Import success template
-const succesTemplate = require("../template/template");
+const succesTemplate = require("../helper/common");
 
 // Function to get all or search from database
 getAllCustomers = async(req, res) => {
