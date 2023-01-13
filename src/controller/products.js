@@ -1,6 +1,9 @@
 // Import models
 const productModel = require("../model/products");
 
+// Import random id
+const crypto = require("crypto");
+
 // Import success template
 const succesTemplate = require("../helper/common");
 
@@ -44,7 +47,7 @@ const getAllProducts = async(req, res) => {
 // Function to get detail based on id
 const getDetailProduct = async(req, res) => {
     // Taking params as const
-    const queryId = Number(req.params.id);
+    const queryId = req.params.id;
 
     // Error handling for query database
     try{
@@ -64,8 +67,10 @@ const getDetailProduct = async(req, res) => {
 
 // Function to create product
 const createProduct = (req, res) => {
+    // Creating random 40 character id
+    const queryId = crypto.randomBytes(20).toString("hex");
     // Calling insertProduct from model
-    productModel.insertProduct(req.body)
+    productModel.insertProduct(req.body, queryId)
         .then((result) => {
             // Display the result
             succesTemplate.responseTemplate(
@@ -81,7 +86,7 @@ const createProduct = (req, res) => {
 // Function to update product
 const updateProduct = (req, res) => {
     // Set param id as const
-    const paramId = Number(req.params.id);
+    const paramId = req.params.id;
     req.body.id = paramId;
     // Calling updateProduct method from model
     productModel.updateProduct(req.body)
@@ -103,7 +108,7 @@ const updateProduct = (req, res) => {
 
 // Function to delete product
 const deleteProduct = (req, res) => {
-    const paramId = Number(req.params.id);
+    const paramId = req.params.id;
     productModel.deleteProduct(paramId)
         .then((result)=>{
             // Display the result

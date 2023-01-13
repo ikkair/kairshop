@@ -1,6 +1,9 @@
 // Import models
 const categoryModel = require("../model/category");
 
+// Import random id
+const crypto = require("crypto");
+
 // Import success template
 const succesTemplate = require("../helper/common");
 
@@ -44,7 +47,7 @@ const getAllCategory = async(req, res) => {
 // Function to get detail based on id
 const getDetailCategory = async(req, res) => {
     // Taking params as const
-    const queryId = Number(req.params.id);
+    const queryId = req.params.id;
 
     // Error handling for query database
     try{
@@ -64,8 +67,10 @@ const getDetailCategory = async(req, res) => {
 
 // Function to create category
 const createCategory = (req, res) => {
+    // Creating random 40 character id
+    const queryId = crypto.randomBytes(20).toString("hex");
     // Calling insertCategory from model
-    categoryModel.insertCategory(req.body)
+    categoryModel.insertCategory(req.body, queryId)
         .then((result) => {
             // Display the result
             succesTemplate.responseTemplate(
@@ -81,7 +86,7 @@ const createCategory = (req, res) => {
 // Function to update category 
 const updateCategory = (req, res) => {
     // Set param id as const
-    const paramId = Number(req.params.id);
+    const paramId = req.params.id;
     req.body.id = paramId;
     // Calling updateCategory method from model
     categoryModel.updateCategory(req.body)
@@ -103,7 +108,7 @@ const updateCategory = (req, res) => {
 
 // Function to delete category
 const deleteCategory = (req, res) => {
-    const paramId = Number(req.params.id);
+    const paramId = req.params.id;
     categoryModel.deleteCategory(paramId)
         .then((result)=>{
             // Display the result

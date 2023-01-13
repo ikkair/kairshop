@@ -1,6 +1,9 @@
 // Import models
 const customerModel = require("../model/customers");
 
+// Import random id
+const crypto = require("crypto");
+
 // Import success template
 const succesTemplate = require("../helper/common");
 
@@ -44,7 +47,7 @@ const getAllCustomers = async(req, res) => {
 // Function to get detail based on id
 const getDetailCustomer = async(req, res) => {
     // Taking params as const
-    const queryId = Number(req.params.id);
+    const queryId = req.params.id;
 
     // Error handling for query database
     try{
@@ -64,8 +67,10 @@ const getDetailCustomer = async(req, res) => {
 
 // Function to create customer
 const createCustomer = (req, res) => {
+    // Creating random 40 character id
+    const queryId = crypto.randomBytes(20).toString("hex");
     // Calling insertCustomer from model
-    customerModel.insertCustomer(req.body)
+    customerModel.insertCustomer(req.body, queryId)
         .then((result) => {
             // Display the result
             succesTemplate.responseTemplate(
@@ -81,7 +86,7 @@ const createCustomer = (req, res) => {
 // Function to update customer
 const updateCustomer = (req, res) => {
     // Set param id as const
-    const paramId = Number(req.params.id);
+    const paramId = req.params.id;
     req.body.id = paramId;
     // Calling updateCustomer method from model
     customerModel.updateCustomer(req.body)
@@ -103,7 +108,7 @@ const updateCustomer = (req, res) => {
 
 // Function to delete customer
 const deleteCustomer = (req, res) => {
-    const paramId = Number(req.params.id);
+    const paramId = req.params.id;
     customerModel.deleteCustomer(paramId)
         .then((result)=>{
             // Display the result

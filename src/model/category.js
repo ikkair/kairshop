@@ -1,13 +1,5 @@
-// Import pg for accessing postgres database
-const { Pool } = require("pg");
-// Database configs
-const pool = new Pool({
-    user: process.env.PGUSER,
-    host: process.env.PGHOST,
-    database: process.env.PGDATABASE,
-    password: process.env.PGPASSWORD,
-    port: process.env.PGPORT
-})
+// Import database config from config folder
+const {pool} = require("../config/db");
 
 // Function to query all or search category table
 function selectAllCategory(querySearch, querySortBy, querySort, queryLimit, queryOffset){
@@ -20,16 +12,16 @@ function selectAllCategory(querySearch, querySortBy, querySort, queryLimit, quer
 // Function to get record from id
 function selectCategory(queryId){
     return pool.query(
-        `SELECT * FROM categories WHERE id=${queryId}`
+        `SELECT * FROM categories WHERE id='${queryId}'`
     );
 }
 
 // Function to insert 
-function insertCategory(queryObject){
-    const {id, category_type} = queryObject;
+function insertCategory(queryObject, queryId){
+    const {category_type} = queryObject;
     return pool.query(
         `INSERT INTO categories(id, category_type) `+
-        `VALUES(${id}, '${category_type}')`
+        `VALUES('${queryId}', '${category_type}')`
     );
 }
 
@@ -38,14 +30,14 @@ function updateCategory(queryObject){
     const {id, category_type} = queryObject; 
     return pool.query(
         `UPDATE categories SET category_type='${category_type}' `+
-        `WHERE id=${id}`
+        `WHERE id='${id}'`
     );
 }
 
 // Function to delete record from id
 function deleteCategory(queryId){
     return pool.query(
-        `DELETE FROM categories WHERE id=${queryId}`
+        `DELETE FROM categories WHERE id='${queryId}'`
     );
 }
 

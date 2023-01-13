@@ -1,13 +1,5 @@
-// Import pg for accessing postgres database
-const { Pool } = require("pg");
-// Database configs
-const pool = new Pool({
-    user: process.env.PGUSER,
-    host: process.env.PGHOST,
-    database: process.env.PGDATABASE,
-    password: process.env.PGPASSWORD,
-    port: process.env.PGPORT
-})
+// Import database config from config folder
+const {pool} = require("../config/db");
 
 // Function to query all or search product table
 function selectAllProduct(querySearch, querySortBy, querySort, queryLimit, queryOffset){
@@ -20,16 +12,16 @@ function selectAllProduct(querySearch, querySortBy, querySort, queryLimit, query
 // Function to get record from id
 function selectProduct(queryId){
     return pool.query(
-        `SELECT * FROM products WHERE id=${queryId}`
+        `SELECT * FROM products WHERE id='${queryId}'`
     );
 }
 
 // Function to insert 
-function insertProduct(queryObject){
-    const {id, product_name, product_price} = queryObject;
+function insertProduct(queryObject, queryId){
+    const {product_name, product_price} = queryObject;
     return pool.query(
         `INSERT INTO products(id, product_name, product_price) `+
-        `VALUES(${id}, '${product_name}', ${product_price})`
+        `VALUES('${queryId}', '${product_name}', ${product_price})`
     );
 }
 
@@ -38,7 +30,7 @@ function updateProduct(queryObject){
     const {id, product_name, product_price} = queryObject; 
     return pool.query(
         `UPDATE products SET product_name='${product_name}', `+
-        `product_price='${product_price}' WHERE id=${id}`
+        `product_price='${product_price}' WHERE id='${id}'`
 
     );
 }
@@ -46,7 +38,7 @@ function updateProduct(queryObject){
 // Function to delete record from id
 function deleteProduct(queryId){
     return pool.query(
-        `DELETE FROM products WHERE id=${queryId}`
+        `DELETE FROM products WHERE id='${queryId}'`
     );
 }
 

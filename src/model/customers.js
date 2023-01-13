@@ -1,13 +1,5 @@
-// Import pg for accessing postgres database
-const { Pool } = require("pg");
-// Database configs
-const pool = new Pool({
-    user: process.env.PGUSER,
-    host: process.env.PGHOST,
-    database: process.env.PGDATABASE,
-    password: process.env.PGPASSWORD,
-    port: process.env.PGPORT
-})
+// Import database config from config folder
+const {pool} = require("../config/db");
 
 // Function to query all or search customer table
 function selectAllCustomer(querySearch, querySortBy, querySort, queryLimit, queryOffset){
@@ -20,16 +12,16 @@ function selectAllCustomer(querySearch, querySortBy, querySort, queryLimit, quer
 // Function to get record from id
 function selectCustomer(queryId){
     return pool.query(
-        `SELECT * FROM customers WHERE id=${queryId}`
+        `SELECT * FROM customers WHERE id='${queryId}'`
     );
 }
 
 // Function to insert 
-function insertCustomer(queryObject){
-    const {id, customer_name, customer_email, customer_phone} = queryObject;
+function insertCustomer(queryObject, queryId){
+    const {customer_name, customer_email, customer_phone} = queryObject;
     return pool.query(
         `INSERT INTO customers(id, customer_name, customer_email, customer_phone) `+
-        `VALUES(${id}, '${customer_name}', '${customer_email}', ${customer_phone})`
+        `VALUES('${queryId}', '${customer_name}', '${customer_email}', ${customer_phone})`
     );
 }
 
@@ -39,7 +31,7 @@ function updateCustomer(queryObject){
     return pool.query(
         `UPDATE customers SET customer_name='${customer_name}', `+
         `customer_email='${customer_email}', customer_phone=${customer_phone} `+
-        `WHERE id=${id}`
+        `WHERE id='${id}'`
 
     );
 }
@@ -47,7 +39,7 @@ function updateCustomer(queryObject){
 // Function to delete record from id
 function deleteCustomer(queryId){
     return pool.query(
-        `DELETE FROM customers WHERE id=${queryId}`
+        `DELETE FROM customers WHERE id='${queryId}'`
     );
 }
 
