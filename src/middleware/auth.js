@@ -24,4 +24,19 @@ const authToken = (req, res, next) => {
         
     }
 }
-module.exports = {authToken};
+
+const authoCustomer = (req, res, next) => {
+    if (req.payload.customer_role !== "user"){
+        next(new createError(401,"Unauthorized"));
+    }
+    next();
+}
+
+const authoSeller = (req, res, next) => {
+    if (req.payload.seller_role !== "seller"){
+        next(new createError(401,"Unauthorized"));
+    }
+    next();
+}
+
+module.exports = {authToken, authoCustomer, authoSeller};

@@ -17,11 +17,12 @@ function selectProduct(queryId){
 }
 
 // Function to insert 
-function insertProduct(queryObject, queryId){
-    const {product_name, product_price} = queryObject;
+function insertProduct(queryObject){
+    const {queryFilename, queryId, product_name, product_price} = queryObject;
+    console.log(queryFilename)
     return pool.query(
-        `INSERT INTO products(id, product_name, product_price) `+
-        `VALUES('${queryId}', '${product_name}', ${product_price})`
+        `INSERT INTO products(id, product_name, product_price, product_photo) `+
+        `VALUES('${queryId}', '${product_name}', ${product_price}, '${queryFilename}')`
     );
 }
 
