@@ -78,3 +78,16 @@ INSERT INTO customers(id, customer_name, customer_email, customer_phone)
         (4, 'Yuli', 'Yuli@gmail.com', 08128945344),
         (5, 'Kair', 'Kair@gmail.com', 08432930000),
         (16, 'Yuandika', 'Yuandika@gmail.com', 08289239327);
+
+
+-- Creating role type
+CREATE TYPE role AS ENUM ('user', 'seller');
+-- Creating customers table
+CREATE TABLE sellers(
+    id CHAR(36) PRIMARY KEY,
+    seller_name VARCHAR(255) NOT NULL,
+    seller_email VARCHAR(255) UNIQUE NOT NULL,
+    seller_phone BIGINT NOT NULL,
+    seller_password CHAR(60) NOT NULL,
+    seller_role role NOT NULL 
+);
