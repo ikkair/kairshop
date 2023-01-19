@@ -2,7 +2,7 @@
 const categoryModel = require("../model/category");
 
 // Import random id
-const crypto = require("crypto");
+const {v4: uuidv4} = require("uuid");
 
 // Import success template
 const succesTemplate = require("../helper/common");
@@ -67,8 +67,8 @@ const getDetailCategory = async(req, res) => {
 
 // Function to create category
 const createCategory = (req, res) => {
-    // Creating random 40 character id
-    const queryId = crypto.randomBytes(20).toString("hex");
+    // Creating random character id
+    const queryId = uuidv4();
     // Calling insertCategory from model
     categoryModel.insertCategory(req.body, queryId)
         .then((result) => {

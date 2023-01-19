@@ -13,7 +13,8 @@ DROP TABLE IF EXISTS products;
 CREATE TABLE products(
     id VARCHAR(40) PRIMARY KEY,
     product_name VARCHAR(255) NOT NULL,
-    product_price INT NOT NULL
+    product_price INT NOT NULL,
+    product_photo VARCHAR(255) 
 );
 
 -- Dummy data
@@ -56,12 +57,16 @@ INSERT INTO categories(id, category_type)
 -- Delete table if same name exist
 DROP TABLE IF EXISTS customers;
 
+-- Creating role type
+CREATE TYPE role AS ENUM ('user', 'seller');
 -- Creating customers table
 CREATE TABLE customers(
-    id VARCHAR(40) PRIMARY KEY,
+    id CHAR(36) PRIMARY KEY,
     customer_name VARCHAR(255) NOT NULL,
-    customer_email VARCHAR(255) NOT NULL,
-    customer_phone BIGINT NOT NULL
+    customer_email VARCHAR(255) UNIQUE NOT NULL,
+    customer_phone BIGINT NOT NULL,
+    customer_password CHAR(60) NOT NULL,
+    customer_role role NOT NULL 
 );
 
 -- Dummy data category

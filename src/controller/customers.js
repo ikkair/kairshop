@@ -1,8 +1,14 @@
 // Import models
 const customerModel = require("../model/customers");
 
+// Import jwt helper
+const authHelper = require("../helper/auth");
+
+// Import hash
+const bcrypt = require("bcryptjs"); 
+
 // Import random id
-const crypto = require("crypto");
+const {v4: uuidv4} = require("uuid");
 
 // Import success template
 const succesTemplate = require("../helper/common");
@@ -48,7 +54,6 @@ const getAllCustomers = async(req, res) => {
 const getDetailCustomer = async(req, res) => {
     // Taking params as const
     const queryId = req.params.id;
-
     // Error handling for query database
     try{
         // Calling selectCustomer from model and then display
@@ -66,11 +71,16 @@ const getDetailCustomer = async(req, res) => {
 }
 
 // Function to create customer
-const createCustomer = (req, res) => {
-    // Creating random 40 character id
-    const queryId = crypto.randomBytes(20).toString("hex");
+const registerCustomer = (req, res) => {
+    // Creating random character id
+    req.body.queryId = uuidv4();
+    // Creating hash password
+    const salt = bcrypt.genSaltSync(10);
+    req.body.queryPwd = bcrypt.hashSync(req.body.customer_password, salt);
+    // Default role
+    req.body.customer_role = "user";
     // Calling insertCustomer from model
-    customerModel.insertCustomer(req.body, queryId)
+    customerModel.insertCustomer(req.body)
         .then((result) => {
             // Display the result
             succesTemplate.responseTemplate(
@@ -82,6 +92,50 @@ const createCustomer = (req, res) => {
             res.send(err.detail);
         });
 } 
+
+// Function to login 
+const loginCustomer = async (req, res) => {
+    // Destructure request body
+    const {customer_email, customer_password} = req.body
+    // Search email
+    let data;
+    try{
+        data = await customerModel.selectEmailCustomer(customer_email);
+    }
+    catch(err){
+        console.log(err);
+        res.send(err.detail);
+        return
+    }
+    // Check is email valid
+    if (data.rowCount < 1){
+        return res.json({
+            Message: "Email is Invalid"
+        })
+    }
+    const user = data.rows[0];
+    // Validating password hash
+    const passwordValidate = bcrypt.compareSync(customer_password, user.customer_password);
+    // Delete password to prevent leak
+    delete user.customer_password;
+    // Creating payload for auth
+    let payload = {
+        customer_email: user.customer_email,
+        customer_role: user.customer_role
+    }
+    // Check is password valid
+    if (passwordValidate) {
+        user.customer_token = authHelper.generateToken(payload);
+        user.customer_refresh_token = authHelper.generateRefreshToken(payload);
+        succesTemplate.responseTemplate(
+            res, 200, user, "Login Success"
+        )
+    } else {
+        return res.json({
+            Message: "Password is Invalid"
+        })
+    }
+}
 
 // Function to update customer
 const updateCustomer = (req, res) => {
@@ -130,7 +184,8 @@ const deleteCustomer = (req, res) => {
 module.exports = {
     getAllCustomers,
     getDetailCustomer,
-    createCustomer,
+    registerCustomer,
     updateCustomer,
-    deleteCustomer
+    deleteCustomer,
+    loginCustomer
 }

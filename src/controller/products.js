@@ -1,8 +1,15 @@
 // Import models
 const productModel = require("../model/products");
 
+// Import redis
+const redis = require("redis");
+const client = redis.createClient();
+client.on("error", (err)=>{
+    console.log(err);
+});
+
 // Import random id
-const crypto = require("crypto");
+const {v4: uuidv4} = require("uuid");
 
 // Import success template
 const succesTemplate = require("../helper/common");
@@ -49,6 +56,17 @@ const getDetailProduct = async(req, res) => {
     // Taking params as const
     const queryId = req.params.id;
 
+    // await client.connect();
+    // if (await client.exists("hello") > 0){
+    //     console.log("already exist");
+    // } else {
+    //     await client.set("hello", "world");
+    //     await client.expire("hello", 6);
+    // }
+    // const test = await client.get("hello");
+    // console.log(test);
+    // await client.disconnect();
+
     // Error handling for query database
     try{
         // Calling selectProduct from model and then display
@@ -67,8 +85,8 @@ const getDetailProduct = async(req, res) => {
 
 // Function to create product
 const createProduct = (req, res) => {
-    // Creating random 40 character id
-    const queryId = crypto.randomBytes(20).toString("hex");
+    // Creating random character id
+    const queryId = uuidv4();
     // Calling insertProduct from model
     productModel.insertProduct(req.body, queryId)
         .then((result) => {

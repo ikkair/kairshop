@@ -2,15 +2,18 @@
 const express = require("express");
 const router = express.Router();
 
+// Import auth
+const authMiddleware = require("../middleware/auth")
+
 // Import controller functions
 const productController = require("../controller/products.js");
 
 // Route link to controller
 router.get('/', productController.getAllProducts);
 router.get('/:id', productController.getDetailProduct);
-router.post('/', productController.createProduct);
-router.put('/:id', productController.updateProduct);
-router.delete('/:id', productController.deleteProduct);
+router.post('/', authMiddleware.authToken, productController.createProduct);
+router.put('/:id', authMiddleware.authToken, productController.updateProduct);
+router.delete('/:id', authMiddleware.authToken, productController.deleteProduct);
 
 // Export router to index.js at router folder
 module.exports = router;

@@ -16,12 +16,19 @@ function selectCustomer(queryId){
     );
 }
 
-// Function to insert 
-function insertCustomer(queryObject, queryId){
-    const {customer_name, customer_email, customer_phone} = queryObject;
+// Function to get record from email
+function selectEmailCustomer(queryEmail){
     return pool.query(
-        `INSERT INTO customers(id, customer_name, customer_email, customer_phone) `+
-        `VALUES('${queryId}', '${customer_name}', '${customer_email}', ${customer_phone})`
+        `SELECT * FROM customers WHERE customer_email='${queryEmail}'`
+    );
+}
+
+// Function to insert 
+function insertCustomer(queryObject){
+    const {queryPwd, queryId, customer_name, customer_email, customer_phone, customer_role} = queryObject;
+    return pool.query(
+        `INSERT INTO customers(id, customer_name, customer_email, customer_phone, customer_password, customer_role) `+
+        `VALUES('${queryId}', '${customer_name}', '${customer_email}', ${customer_phone}, '${queryPwd}', '${customer_role}')`
     );
 }
 
@@ -54,6 +61,7 @@ function countCustomer(){
 // Export function to controller 
 module.exports = {
     selectAllCustomer,
+    selectEmailCustomer,
     selectCustomer,
     insertCustomer,
     updateCustomer,
