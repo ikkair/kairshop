@@ -3,7 +3,7 @@ const storage = multer.diskStorage({
     destination: __dirname + "../../uploads/",
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now()
-        type = file.mimetype.replaceAll("/",".")
+        const type = file.mimetype.replaceAll("/",".")
         cb(null, file.fieldname + '-' + uniqueSuffix + type)
     },
 })
@@ -13,9 +13,9 @@ const limits = {
 }
 
 const fileFilter = (req, file, cb) => {
-    fileType = ["jpg", "png", "jpeg"];
-    type = file.mimetype;
-    isOk = false;
+    const fileType = ["jpg", "png", "jpeg"];
+    const type = file.mimetype;
+    let isOk = false;
     fileType.forEach(element => {
         if(type.includes(element)){
             isOk = true;

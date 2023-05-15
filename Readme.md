@@ -13,6 +13,10 @@ Backend basic CRUD
 | [CORS] | npm i cors |
 | [Eslint] | npm i eslint |
 | [Http-errors] | npm i http-errors |
+| [Jsonwebtoken] | npm i jsonwebtoken |
+| [Multer] | npm i multer |
+| [Redis] | npm i redis |
+| [Bcryptjs] | npm i bcryptjs |
 
 [express]: <http://expressjs.com>
 [Nodemon]: <https://www.npmjs.com/package/nodemon>
@@ -22,6 +26,10 @@ Backend basic CRUD
 [CORS]: <https://www.npmjs.com/package/cors>
 [Eslint]: <https://eslint.org>
 [Http-errors]: <https://www.npmjs.com/package/http-errors>
+[Jsonwebtoken]: <https://www.npmjs.com/package/jsonwebtoken>
+[Multer]: <https://www.npmjs.com/package/multer>
+[Redis]: <https://www.npmjs.com/package/redis>
+[Bcryptjs]: <https://www.npmjs.com/package/bcryptjs>
 
 ## Installation
 
