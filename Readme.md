@@ -109,7 +109,7 @@ API endpoint list are also available as published postman documentation
 
 # Related Project
 
-:rocket: [`Frontend Kairshop`](https://github.com/ikkair/kairshop-fe)
+:rocket: [`Frontend Kairshop`](https://github.com/ikkair/kairshop-fe-new)
 
 :rocket: [`Backend Kairshop`](https://github.com/ikkair/kairshop)
 
