@@ -13,7 +13,12 @@ const app = express(); // Import express
 
 // Use middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+  {
+    origin: [`${process.env.FE}`],
+    methods: ["GET", "PUT", "POST", "DELETE"]
+  }
+));
 app.use(morgan("dev"));
 app.use(helmet());
 app.use(xss());
