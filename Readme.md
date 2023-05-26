@@ -7,9 +7,7 @@
   <p align="center">
     <a href="https://github.com/ikkair/kairshop"><strong>Explore the docs »</strong></a>
     <br />
-    <a href="#">View Demo</a>
-    ·
-    <a href="#">Api Demo</a>
+    <a href="https://kairshop-fe-ikkair.vercel.app/">View Demo</a>
   </p>
 </p>
 
