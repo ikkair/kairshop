@@ -111,4 +111,4 @@ API endpoint list are also available as published postman documentation
 
 :rocket: [`Backend Kairshop`](https://github.com/ikkair/kairshop)
 
-:rocket: [`Demo Kairshop`](#)
+:rocket: [`Demo Kairshop`](https://kairshop-fe-ikkair.vercel.app/)
