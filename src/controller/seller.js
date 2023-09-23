@@ -151,6 +151,7 @@ const updateSeller = (req, res) => {
   // Set param id as const
   const paramId = req.params.id;
   req.body.id = paramId;
+  console.log(req.body)
   // Calling updateSeller method from model
   sellerModel
     .updateSeller(req.body)

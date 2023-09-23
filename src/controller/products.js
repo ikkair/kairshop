@@ -4,13 +4,13 @@ const productModel = require("../model/products");
 // Import fs for delete
 const fs = require("fs");
 
-// Import redis
-const redis = require("redis");
-const client = redis.createClient();
-client.on("error", (err) => {
-  console.log(err);
-});
-
+// // Import redis
+// const redis = require("redis");
+// const client = redis.createClient();
+// client.on("error", (err) => {
+//   console.log(err);
+// });
+//
 // Import random id
 const { v4: uuidv4 } = require("uuid");
 
@@ -75,20 +75,21 @@ const getDetailProduct = async (req, res) => {
   // Taking params as const
   const queryId = req.params.id;
 
-  // Ask wether theres data in redis
-  await client.connect();
-  const result = await client.get(queryId);
-  if (result) {
-    succesTemplate.responseTemplate(
-      res,
-      200,
-      JSON.parse(result),
-      "got the data"
-    );
-    await client.disconnect();
-    console.log("henlo wrold");
-    return;
-  }
+  // // Ask whether theres data in redis
+  // await client.connect();
+  // const result = await client.get(queryId);
+  // if (result) {
+  //   succesTemplate.responseTemplate(
+  //     res,
+  //     200,
+  //     JSON.parse(result),
+  //     "got the data"
+  //   );
+  //   await client.disconnect();
+  //   console.log("henlo wrold");
+  //   return;
+  // }
+  //
   // Error handling for query database
   try {
     // Calling selectProduct from model and then display
@@ -96,18 +97,13 @@ const getDetailProduct = async (req, res) => {
     if (result.rowCount > 0) {
       result.rows[0].photo_path =
         "http://" + req.get("host") + "/" + result.rows[0].product_photo;
-      await client.set(queryId, JSON.stringify(result.rows));
-      await client.expire(queryId, 60);
       succesTemplate.responseTemplate(res, 200, result.rows, "got the data");
-      await client.disconnect();
     } else {
       res.send("data not found");
-      await client.disconnect();
     }
   } catch (err) {
     console.log(err);
     res.send(err.detail);
-    await client.disconnect();
   }
 };
 
