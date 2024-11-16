@@ -26,6 +26,7 @@ pipeline {
         stage('Preparing Build'){
             steps{
                 script {
+                    sh "cd " + $WORKSPACE 
                     sh "npm -i -f"
                     sh "npm run dev"
                 }
