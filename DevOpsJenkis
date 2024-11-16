@@ -14,7 +14,10 @@ pipeline {
             steps {
                 script {
                     sh "echo Starting Clone From Gitlab " + gitUrl
-                    git gitCredentialsId:gitCredentialId, url:gitUrl
+                    checkout scmGit(
+                      branches: [[name: 'master']],
+                      userRemoteConfigs: [[credentialsId: gitCredentialId, url: gitUrl]] 
+                     )
                     sh "Finish Clone From Gitlab" + gitUrl
                 }
             }
