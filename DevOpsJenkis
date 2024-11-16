@@ -22,5 +22,15 @@ pipeline {
                 }
             }
         }
+
+        stage('Preparing Build'){
+            steps{
+                script {
+                    sh "npm -i -f"
+                    sh "npm run dev"
+                }
+                cleanWs()
+            }
+        }
    }
  }
