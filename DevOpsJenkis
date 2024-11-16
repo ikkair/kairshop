@@ -8,20 +8,20 @@ pipeline {
         gitUrl='https://github.com/ikkair/kairshop.git'
         deploymentBranch='master'
     }
-   
+
     stages {
-     stage('Cloning From GITHUB'){
-       steps {
-         script {
-            cleanWs()
-            sh "echo Starting Clone From Gitlab " + gitUrl
-            dir('project1') {
-                git(url:gitUrl, branch: 'master')
+        stage('Cloning From GITHUB'){
+            steps {
+                script {
+                    sh "echo Starting Clone From Gitlab " + gitUrl
+                    git(
+                        url:gitUrl,
+                        gitCredentialsId:gitCredentialId,
+                        branch:deploymentBranch
+                    )
+                    sh "Finish Clone From Gitlab" + gitUrl
+                }
             }
-            sh "Finish Clone From Gitlab" + gitUrl
-         }
-       }
-     }
+        }
    }
  }
-
