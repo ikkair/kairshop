@@ -20,7 +20,6 @@ pipeline {
                          userRemoteConfigs: [[credentialsId: gitCredentialId, url: gitUrl]] 
                        )
                        sh "echo Finish Clone From Gitlab" + gitUrl
-                       sh "cd " + $WORKSPACE 
                        sh "npm -i -f"
                        sh "npm run dev"
                    }
