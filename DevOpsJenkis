@@ -13,24 +13,19 @@ pipeline {
         stage('Cloning From GITHUB'){
             steps {
                 script {
-                    sh "echo Starting Clone From Gitlab " + gitUrl
-                    checkout scmGit(
-                      branches: [[name: 'master']],
-                      userRemoteConfigs: [[credentialsId: gitCredentialId, url: gitUrl]] 
-                     )
-                    sh "echo Finish Clone From Gitlab" + gitUrl
+                   dir('master'){
+                       sh "echo Starting Clone From Gitlab " + gitUrl
+                       checkout scmGit(
+                         branches: [[name: 'master']],
+                         userRemoteConfigs: [[credentialsId: gitCredentialId, url: gitUrl]] 
+                       )
+                       sh "echo Finish Clone From Gitlab" + gitUrl
+                       sh "cd " + $WORKSPACE 
+                       sh "npm -i -f"
+                       sh "npm run dev"
+                   }
                 }
-            }
-        }
-
-        stage('Preparing Build'){
-            steps{
-                script {
-                    sh "cd " + $WORKSPACE 
-                    sh "npm -i -f"
-                    sh "npm run dev"
-                }
-                cleanWs()
+               cleanWs()
             }
         }
    }
