@@ -1,1 +1,15 @@
-pipeline {         agent {                 label 'Built-In Node''         }          stages {                 stage['Test']{                         steps {                                 script {                                         sh "echo burung"                                 }                         }                 }         } } 
+pipeline {
+  agent {
+    label 'Built-In Node'
+  }
+ 
+  stages {
+    stage['Test']{
+      steps {                                 
+        script {
+          sh "echo burung"
+        }                         
+      }                
+    }         
+  } 
+} 
