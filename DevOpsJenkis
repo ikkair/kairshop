@@ -1,15 +1,27 @@
+environment {
+    gitCredentialId='a94e0d0a-a27c-414b-8ee1-f502bf9311b3'
+    gitUrl='https://github.com/ikkair/kairshop.git'
+    deploymentBranch='master'
+}
+
 pipeline {
-  agent {
-    label 'KonIkkair'
-  }
- 
-  stages {
-    stage('Test'){
-      steps {                                 
-        script {
-          sh "echo burung"
-        }                         
-      }                
-    }         
-  } 
-} 
+   agent {
+     label 'KonIkkair'
+   }
+
+   stages {
+     stage('Cloning From GITHUB'){
+       steps {
+         script {
+            sh "echo Starting Clone From Gitlab " + gitUrl
+            git(
+                url:gitUrl,
+                gitCredentialsId:gitCredentialId,
+                branch:deploymentBranch
+            )
+            sh "Finish Clone From Gitlab" + gitUrl
+         }
+       }
+     }
+   }
+ }
