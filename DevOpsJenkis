@@ -38,7 +38,7 @@ pipeline {
          steps {
             script{
                sh 'cd $WORKSPACE'
-               sh 'npm run dev'
+               sh 'nohup npm run dev &'
             }
             cleanWs()
          }
