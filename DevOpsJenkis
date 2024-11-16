@@ -20,11 +20,28 @@ pipeline {
                          userRemoteConfigs: [[credentialsId: gitCredentialId, url: gitUrl]] 
                        )
                        sh "echo Finish Clone From Gitlab" + gitUrl
-                       sh 'echo sad $WORKSPACE'
                    }
                 }
-               cleanWs()
             }
         }
+
+      stage('Installing Module'){
+         steps {
+            script{
+               sh 'cd $WORKSPACE'
+               sh 'npm -i -f'
+            }
+         }
+      }
+
+      stage('Start Running APPS'){
+         steps {
+            script{
+               sh 'cd $WORKSPACE'
+               sh 'npm run dev'
+            }
+            cleanWs()
+         }
+      }
    }
  }
