@@ -14,11 +14,13 @@ pipeline {
             steps {
                 script {
                     sh "echo Starting Clone From Gitlab " + gitUrl
-                    git(
+                     dir('project1') {
+                       git(
                         url:gitUrl,
                         gitCredentialsId:gitCredentialId,
                         branch:deploymentBranch
-                    )
+                       )
+                     }
                     sh "Finish Clone From Gitlab" + gitUrl
                 }
             }
