@@ -1,15 +1,15 @@
-environment {
-    gitCredentialId='a94e0d0a-a27c-414b-8ee1-f502bf9311b3'
-    gitUrl='https://github.com/ikkair/kairshop.git'
-    deploymentBranch='master'
-}
-
 pipeline {
    agent {
      label 'KonIkkair'
    }
 
-   stages {
+    environment {
+        gitCredentialId='a94e0d0a-a27c-414b-8ee1-f502bf9311b3'
+        gitUrl='https://github.com/ikkair/kairshop.git'
+        deploymentBranch='master'
+    }
+   
+    stages {
      stage('Cloning From GITHUB'){
        steps {
          script {
@@ -24,3 +24,4 @@ pipeline {
      }
    }
  }
+
