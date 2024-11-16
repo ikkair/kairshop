@@ -29,7 +29,7 @@ pipeline {
          steps {
             script{
                sh 'cd $WORKSPACE'
-               sh 'npm -install -f'
+               sh 'npm -install -force'
             }
          }
       }
