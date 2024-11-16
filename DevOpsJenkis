@@ -13,8 +13,11 @@ pipeline {
      stage('Cloning From GITHUB'){
        steps {
          script {
+            cleanWs()
             sh "echo Starting Clone From Gitlab " + gitUrl
-            git clone + gitUrl
+            dir('project1') {
+                git(url:gitUrl, branch: 'master')
+            }
             sh "Finish Clone From Gitlab" + gitUrl
          }
        }
